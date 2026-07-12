@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const { 
-  getPackages, 
-  createPackage, 
+const {
+  getPackages,
+  getAllPackagesAdmin,
+  createPackage,
   getPackageBySlug,
+  getPackageByIdAdmin,
   addItinerary,
   addPricingTiers,
   addMedia,
@@ -19,6 +21,8 @@ router.get('/public/packages', getPackages);
 router.get('/public/packages/:slug', getPackageBySlug);
 
 // Protected Admin Routes
+router.get('/admin/packages', protect, getAllPackagesAdmin);
+router.get('/admin/packages/:id', protect, getPackageByIdAdmin);
 router.post('/admin/packages', protect, createPackage);
 router.put('/admin/packages/:id', protect, updatePackage);
 router.delete('/admin/packages/:id', protect, deletePackage);
