@@ -9,6 +9,7 @@ const inquiryRoutes = require('./routes/inquiryRoutes');
 const authRoutes = require('./routes/authRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
+const mediaRoutes = require('./routes/mediaRoutes');
 
 const app = express();
 
@@ -16,13 +17,14 @@ connectDB();
 
 // Global Middleware
 app.use(helmet());
-app.use(cors()); // We will restrict this to the frontend URL later
+app.use(cors());
 app.use(express.json());
 
 app.use('/api', packageRoutes);
 app.use('/api', inquiryRoutes);
 app.use('/api', bookingRoutes);
 app.use('/api', dashboardRoutes);
+app.use('/api', mediaRoutes);
 app.use('/api/auth', authRoutes);
 
 // Start Server
