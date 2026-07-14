@@ -8,7 +8,8 @@ const links = [
   { href: '/admin/dashboard', label: 'Dashboard' },
   { href: '/admin/packages', label: 'Packages' },
   { href: '/admin/inquiries', label: 'Inquiries' },
-  { href: '/admin/bookings', label: 'Bookings' }
+  { href: '/admin/bookings', label: 'Bookings' },
+  { href: '/admin/settings', label: 'Settings' }
 ];
 
 export default function AdminLayout({ children }) {
@@ -40,7 +41,7 @@ export default function AdminLayout({ children }) {
   return (
     <div className="min-h-screen flex">
       <aside className="w-56 bg-ceylon-teal text-white flex flex-col p-4">
-        <p className="font-serif font-bold text-lg mb-6">Ceylon Trails · Admin</p>
+        <p className="font-serif font-bold text-lg mb-6">Edward Tours · Admin</p>
         <nav className="flex flex-col gap-1 text-sm flex-1">
           {links.map((l) => (
             <Link

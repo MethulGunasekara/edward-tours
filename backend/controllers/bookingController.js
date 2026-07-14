@@ -1,16 +1,17 @@
 const Booking = require('../models/Booking');
 
-// @desc    Create a new booking
+// @desc    Create a new booking (deposit is auto-calculated as 30% of total)
 // @route   POST /api/bookings
 // @access  Public
 const createBooking = async (req, res) => {
   try {
-    const newBooking = await Booking.create(req.body);
+    const depositAmount = Number((req.body.totalPrice * 0.3).toFixed(2));
+    const newBooking = await Booking.create({ ...req.body, depositAmount });
     res.status(201).json(newBooking);
   } catch (error) {
-    res.status(400).json({ 
-      message: 'Failed to create booking. Please check your inputs.', 
-      error: error.message 
+    res.status(400).json({
+      message: 'Failed to create booking. Please check your inputs.',
+      error: error.message
     });
   }
 };

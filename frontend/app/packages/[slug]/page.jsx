@@ -2,36 +2,33 @@ import { notFound } from 'next/navigation';
 import { getPackageBySlug } from '@/lib/api';
 import InquiryForm from '@/components/InquiryForm';
 import BookingForm from '@/components/BookingForm';
+import HeroVideoBackground from '@/components/HeroVideoBackground';
 
 export async function generateMetadata({ params }) {
   const pkg = await getPackageBySlug(params.slug);
   if (!pkg) return {};
-  return { title: `${pkg.title} | Ceylon Trails`, description: pkg.summary };
+  return { title: `${pkg.title} | Edward Tours`, description: pkg.summary };
 }
 
 export default async function PackageDetailPage({ params }) {
   const pkg = await getPackageBySlug(params.slug);
   if (!pkg) notFound();
 
-  const hero = pkg.media?.find((m) => m.isHero);
+  const heroVideo = pkg.media?.find((m) => m.isHero && m.type === 'video');
+  const heroImage = pkg.media?.find((m) => m.isHero && m.type === 'image');
 
   return (
     <div>
-      <div className="h-72 md:h-96 bg-gray-800 relative flex items-end">
-        {hero?.type === 'video' ? (
-          <video src={hero.cloudinaryUrl} autoPlay muted loop className="absolute inset-0 w-full h-full object-cover" />
-        ) : hero ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={hero.cloudinaryUrl} alt={pkg.title} className="absolute inset-0 w-full h-full object-cover" />
-        ) : null}
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="relative max-w-6xl mx-auto px-4 pb-8 w-full text-white">
-          <span className="text-xs uppercase tracking-wide text-ceylon-gold font-semibold">
-            {pkg.category}
-          </span>
-          <h1 className="font-serif text-3xl md:text-4xl font-bold mt-1">{pkg.title}</h1>
+      <HeroVideoBackground videoUrl={heroVideo?.cloudinaryUrl} posterUrl={heroImage?.cloudinaryUrl} className="bg-gray-800">
+        <div className="h-72 md:h-96 flex items-end">
+          <div className="max-w-6xl mx-auto px-4 pb-8 w-full text-white">
+            <span className="text-xs uppercase tracking-wide text-ceylon-gold font-semibold">
+              {pkg.category}
+            </span>
+            <h1 className="font-serif text-3xl md:text-4xl font-bold mt-1">{pkg.title}</h1>
+          </div>
         </div>
-      </div>
+      </HeroVideoBackground>
 
       <div className="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-10">
         <div className="md:col-span-2 space-y-10">

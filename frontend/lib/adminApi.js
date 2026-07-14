@@ -59,3 +59,5 @@ export const getAdminBookings = () => adminFetch('/admin/bookings');
 export const updateBookingStatus = (id, data) =>
   adminFetch(`/admin/bookings/${id}/status`, { method: 'PUT', body: JSON.stringify(data) });
 export const getUploadSignature = () => adminFetch('/admin/media/signature');
+export const updateAdminSettings = (data) =>
+  adminFetch('/admin/settings', { method: 'PUT', body: JSON.stringify(data) });

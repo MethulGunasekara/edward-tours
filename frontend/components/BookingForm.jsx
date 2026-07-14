@@ -1,7 +1,8 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { createBooking } from '@/lib/api';
+import { createBooking, initiatePayment } from '@/lib/api';
+import { redirectToPayHere } from '@/lib/payhereRedirect';
 
 export default function BookingForm({ pkg }) {
   const [form, setForm] = useState({
@@ -10,15 +11,16 @@ export default function BookingForm({ pkg }) {
   });
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
+  const [createdBooking, setCreatedBooking] = useState(null);
+  const [payLoading, setPayLoading] = useState(false);
 
   const matchedTier = useMemo(() => {
     const travelers = Number(form.travelers) || 0;
-    return (pkg.pricingTiers || []).find(
-      (t) => travelers >= t.minPax && travelers <= t.maxPax
-    );
+    return (pkg.pricingTiers || []).find((t) => travelers >= t.minPax && travelers <= t.maxPax);
   }, [form.travelers, pkg.pricingTiers]);
 
   const totalPrice = matchedTier ? matchedTier.pricePerPersonUSD * Number(form.travelers) : null;
+  const depositPreview = totalPrice ? Math.round(totalPrice * 0.3 * 100) / 100 : null;
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -31,12 +33,13 @@ export default function BookingForm({ pkg }) {
     setStatus('loading');
     setError('');
     try {
-      await createBooking({
+      const booking = await createBooking({
         packageId: pkg._id,
         ...form,
         travelers: Number(form.travelers),
         totalPrice
       });
+      setCreatedBooking(booking);
       setStatus('success');
     } catch (err) {
       setError(err.message);
@@ -44,11 +47,34 @@ export default function BookingForm({ pkg }) {
     }
   };
 
-  if (status === 'success') {
+  const handlePayDeposit = async () => {
+    setPayLoading(true);
+    setError('');
+    try {
+      const { checkoutUrl, params } = await initiatePayment(createdBooking._id);
+      redirectToPayHere({ checkoutUrl, params });
+    } catch (err) {
+      setError(err.message);
+      setPayLoading(false);
+    }
+  };
+
+  if (status === 'success' && createdBooking) {
     return (
-      <div className="rounded-lg bg-green-50 border border-green-200 p-4 text-green-800 text-sm">
-        Booking request received — status: <strong>Pending</strong>. We'll confirm details and
-        send deposit payment instructions by email.
+      <div className="rounded-lg bg-green-50 border border-green-200 p-4 text-green-800 text-sm space-y-3">
+        <p>
+          Booking request received. To confirm your dates, pay a{' '}
+          <strong>${createdBooking.depositAmount} USD deposit</strong> now — the balance is
+          settled separately before or during your tour.
+        </p>
+        <button
+          onClick={handlePayDeposit}
+          disabled={payLoading}
+          className="bg-ceylon-gold text-white text-sm font-medium px-5 py-2.5 rounded-md hover:opacity-90 disabled:opacity-50"
+        >
+          {payLoading ? 'Redirecting to PayHere...' : 'Pay Deposit via PayHere'}
+        </button>
+        {error && <p className="text-sm text-red-600">{error}</p>}
       </div>
     );
   }
@@ -74,9 +100,14 @@ export default function BookingForm({ pkg }) {
         className="border rounded-md px-3 py-2 text-sm w-full" />
 
       <div className="text-sm text-gray-700">
-        {matchedTier
-          ? <>Estimated total: <strong>${totalPrice} USD</strong> ({matchedTier.groupSizeLabel})</>
-          : <span className="text-amber-600">No pricing tier found for that group size yet.</span>}
+        {matchedTier ? (
+          <>
+            Estimated total: <strong>${totalPrice} USD</strong> ({matchedTier.groupSizeLabel}) ·
+            Deposit due now: <strong>${depositPreview} USD</strong>
+          </>
+        ) : (
+          <span className="text-amber-600">No pricing tier found for that group size yet.</span>
+        )}
       </div>
 
       {status === 'error' && <p className="text-sm text-red-600">{error}</p>}

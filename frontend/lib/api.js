@@ -34,5 +34,27 @@ export async function createBooking(data) {
   if (!res.ok) throw new Error(result.message || 'Failed to create booking');
   return result;
 }
+export async function getSettings() {
+  const res = await fetch(`${API_URL}/public/settings`, { next: { revalidate: 30 } });
+  if (!res.ok) return { heroVideoUrl: '' };
+  return res.json();
+}
+
+export async function getGalleryImages() {
+  const res = await fetch(`${API_URL}/public/gallery`, { next: { revalidate: 60 } });
+  if (!res.ok) return [];
+  return res.json();
+}
+
+export async function initiatePayment(bookingId) {
+  const res = await fetch(`${API_URL}/payments/initiate`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ bookingId })
+  });
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message || 'Failed to initiate payment');
+  return result;
+}
 
 export { API_URL };

@@ -1,7 +1,7 @@
 import { getPackages } from '@/lib/api';
 import PackageCard from '@/components/PackageCard';
 
-export const metadata = { title: 'Packages | Ceylon Trails' };
+export const metadata = { title: 'Packages | Edward Tours' };
 
 export default async function PackagesPage() {
   const packages = await getPackages().catch(() => []);

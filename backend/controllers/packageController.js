@@ -3,13 +3,33 @@ const Package = require('../models/Package');
 const PricingTier = require('../models/PricingTier');
 const MediaAsset = require('../models/MediaAsset');
 
-// @desc    Get all published packages (Public Marketing Site)
+// @desc    Get all published packages, each with its images attached
+//          (needed for the homepage/listing card slideshow)
 // @route   GET /api/public/packages
 // @access  Public
 const getPackages = async (req, res) => {
   try {
     const packages = await Package.find({ status: 'Published' }).sort({ createdAt: -1 });
-    res.status(200).json(packages);
+
+    const packageIds = packages.map((p) => p._id);
+    const media = await MediaAsset.find({
+      packageId: { $in: packageIds },
+      type: 'image'
+    }).sort({ isHero: -1, sortOrder: 1 });
+
+    const mediaByPackage = {};
+    media.forEach((m) => {
+      const key = m.packageId.toString();
+      if (!mediaByPackage[key]) mediaByPackage[key] = [];
+      mediaByPackage[key].push(m);
+    });
+
+    const packagesWithMedia = packages.map((pkg) => ({
+      ...pkg.toObject(),
+      media: mediaByPackage[pkg._id.toString()] || []
+    }));
+
+    res.status(200).json(packagesWithMedia);
   } catch (error) {
     res.status(500).json({ message: 'Server Error trying to fetch packages' });
   }

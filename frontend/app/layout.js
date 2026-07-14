@@ -1,9 +1,10 @@
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import WhatsAppButton from '@/components/WhatsAppButton';
 
 export const metadata = {
-  title: 'Ceylon Trails | Private Tour Guide in Sri Lanka',
+  title: 'Edward Tours | Private Tour Guide in Sri Lanka',
   description:
     'Locally-guided private tours across Sri Lanka — cultural sites, wildlife safaris, beaches and hill country, custom-planned for you.'
 };
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <WhatsAppButton />
       </body>
     </html>
   );
