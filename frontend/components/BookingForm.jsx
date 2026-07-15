@@ -65,6 +65,7 @@ export default function BookingForm({ pkg }) {
     setError('');
     try {
       const booking = await createBooking({
+        packageId: pkg._id,
         ...form,
         phone: `${selectedCountry.dial}${digitsOnly}`,
         travelers: Number(form.travelers),
