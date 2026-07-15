@@ -7,7 +7,11 @@ const bookingSchema = new mongoose.Schema({
     required: true
   },
   customerName: { type: String, required: true },
-  email: { type: String, required: true },
+  email: {
+  type: String,
+  required: true,
+  match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Please enter a valid email address']
+  },
   phone: { type: String, required: true },
   country: { type: String, required: true },
   travelDate: { type: Date, required: true },

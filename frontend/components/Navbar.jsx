@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 export default function Navbar() {
@@ -9,7 +10,14 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-ceylon-sand">
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
-        <Link href="/" className="font-serif text-xl font-bold text-ceylon-teal">
+        <Link href="/" className="flex items-center gap-2 font-serif text-xl font-bold text-ceylon-teal">
+          <Image
+            src="/logo.jpg"
+            alt="Edward Tours logo"
+            width={36}
+            height={36}
+            className="rounded-full object-cover"
+          />
           Edward Tours
         </Link>
 

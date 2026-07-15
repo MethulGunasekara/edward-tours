@@ -7,7 +7,11 @@ const inquirySchema = new mongoose.Schema({
     default: null // Allow null for general inquiries not tied to a specific tour
   },
   customerName: { type: String, required: true },
-  email: { type: String, required: true },
+  email: {
+  type: String,
+  required: true,
+  match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Please enter a valid email address']
+  },
   country: { type: String, required: true },
   preferredDates: { type: Date, required: true },
   groupSize: { type: Number, required: true },
