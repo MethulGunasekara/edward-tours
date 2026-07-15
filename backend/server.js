@@ -13,6 +13,7 @@ const mediaRoutes = require('./routes/mediaRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
 const galleryRoutes = require('./routes/galleryRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
+const healthRoutes = require('./routes/healthRoutes');
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use('/api', settingsRoutes);
 app.use('/api', galleryRoutes);
 app.use('/api', paymentRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api', healthRoutes);
 
 
 const PORT = process.env.PORT || 5000;

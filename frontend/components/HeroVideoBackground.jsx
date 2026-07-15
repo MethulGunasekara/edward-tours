@@ -13,6 +13,7 @@ export default function HeroVideoBackground({
   const videoRef = useRef(null);
   const [ready, setReady] = useState(!videoUrl);
   const [showLoader, setShowLoader] = useState(!!videoUrl);
+  const [videoFailed, setVideoFailed] = useState(false);
 
   useEffect(() => {
     if (!videoUrl) return;
@@ -35,12 +36,24 @@ export default function HeroVideoBackground({
       video.addEventListener('canplay', markReady);
     }
 
-    // Safety net in case the video URL is broken and never fires an event
-    const fallback = setTimeout(markReady, 6000);
+    // Only fires if the video genuinely errors out (bad URL, deleted asset,
+    // network failure) — not a fixed timer, so a slow-but-working video is
+    // never cut off early. This is the actual fix: previously a hard 6s
+    // timeout hid the loader even while a legitimate video was still buffering.
+    const handleError = () => {
+      setVideoFailed(true);
+      markReady();
+    };
+    video.addEventListener('error', handleError);
+
+    // Generous safety net only for a genuinely stuck connection —
+    // long enough that it should never fire for a normal video load.
+    const staleConnectionFallback = setTimeout(markReady, 20000);
 
     return () => {
       video.removeEventListener('canplay', markReady);
-      clearTimeout(fallback);
+      video.removeEventListener('error', handleError);
+      clearTimeout(staleConnectionFallback);
     };
   }, [videoUrl, minDisplayMs]);
 
@@ -59,7 +72,7 @@ export default function HeroVideoBackground({
         </div>
       )}
 
-      {videoUrl ? (
+      {videoUrl && !videoFailed ? (
         <video
           ref={videoRef}
           src={videoUrl}
@@ -67,6 +80,8 @@ export default function HeroVideoBackground({
           muted
           loop
           playsInline
+          preload="auto"
+          poster={posterUrl}
           className="absolute inset-0 w-full h-full object-cover"
         />
       ) : posterUrl ? (
