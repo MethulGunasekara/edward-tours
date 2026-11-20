@@ -67,7 +67,7 @@ export default function HeroVideoBackground({
         >
           <div className="flex flex-col items-center gap-4">
             <div className="w-14 h-14 border-4 border-white/30 border-t-ceylon-gold rounded-full animate-spin" />
-            <p className="text-white font-serif text-sm tracking-widest uppercase">Edward Tours</p>
+            <p className="text-white font-serif text-sm tracking-widest uppercase">EDWARD VILLA FOOD COURT TOURS &amp; TRAVELS AGENCY (PRIVATE) LIMITED</p>
           </div>
         </div>
       )}

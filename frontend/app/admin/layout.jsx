@@ -41,7 +41,7 @@ export default function AdminLayout({ children }) {
   return (
     <div className="min-h-screen flex">
       <aside className="w-56 bg-ceylon-teal text-white flex flex-col p-4">
-        <p className="font-serif font-bold text-lg mb-6">Edward Tours · Admin</p>
+        <p className="font-serif font-bold text-lg mb-6">EDWARD VILLA FOOD COURT TOURS &amp; TRAVELS AGENCY (PRIVATE) LIMITED · Admin</p>
         <nav className="flex flex-col gap-1 text-sm flex-1">
           {links.map((l) => (
             <Link

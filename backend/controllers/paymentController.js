@@ -38,7 +38,7 @@ const initiatePayment = async (req, res) => {
         cancel_url: `${process.env.FRONTEND_URL}/payment/cancelled`,
         notify_url: `${process.env.BACKEND_URL}/api/payments/notify`,
         order_id: orderId,
-        items: booking.packageId?.title || 'Edward Tours Booking Deposit',
+        items: booking.packageId?.title || 'EDWARD VILLA FOOD COURT TOURS & TRAVELS AGENCY (PRIVATE) LIMITED Booking Deposit',
         currency,
         amount,
         first_name: firstName,

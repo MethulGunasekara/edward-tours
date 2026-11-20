@@ -13,12 +13,12 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-2 font-serif text-xl font-bold text-ceylon-teal">
           <Image
             src="/logo.jpg"
-            alt="Edward Tours logo"
+            alt="EDWARD VILLA FOOD COURT TOURS & TRAVELS AGENCY (PRIVATE) LIMITED logo"
             width={36}
             height={36}
             className="rounded-full object-cover"
           />
-          Edward Tours
+          EDWARD VILLA FOOD COURT TOURS &amp; TRAVELS AGENCY (PRIVATE) LIMITED
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-700">

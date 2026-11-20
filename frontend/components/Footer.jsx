@@ -3,7 +3,7 @@ export default function Footer() {
     <footer id="contact" className="bg-ceylon-teal text-white mt-24">
       <div className="max-w-6xl mx-auto px-4 py-12 grid gap-8 md:grid-cols-3">
         <div>
-          <h3 className="font-serif text-lg font-bold mb-2">Edward Tours</h3>
+          <h3 className="font-serif text-lg font-bold mb-2">EDWARD VILLA FOOD COURT TOURS &amp; TRAVELS AGENCY (PRIVATE) LIMITED</h3>
           <p className="text-sm text-white/80">
             Private, locally-guided tours across Sri Lanka — planned and led by someone who
             actually knows the island.
@@ -20,7 +20,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="text-center text-xs text-white/50 py-4 border-t border-white/10">
-        © {new Date().getFullYear()} Edward Tours. All rights reserved.
+        © {new Date().getFullYear()} EDWARD VILLA FOOD COURT TOURS &amp; TRAVELS AGENCY (PRIVATE) LIMITED. All rights reserved.
       </div>
     </footer>
   );

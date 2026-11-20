@@ -7,7 +7,7 @@ import HeroVideoBackground from '@/components/HeroVideoBackground';
 export async function generateMetadata({ params }) {
   const pkg = await getPackageBySlug(params.slug);
   if (!pkg) return {};
-  return { title: `${pkg.title} | Edward Tours`, description: pkg.summary };
+  return { title: `${pkg.title} | EDWARD VILLA FOOD COURT TOURS & TRAVELS AGENCY (PRIVATE) LIMITED`, description: pkg.summary };
 }
 
 export default async function PackageDetailPage({ params }) {

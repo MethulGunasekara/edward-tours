@@ -25,7 +25,7 @@ function buildConfirmationEmail(booking) {
     `Travel date: ${travelDate}\n` +
     `Travelers: ${booking.travelers}\n` +
     `Remaining balance due: $${due} USD (payable before or during your tour)\n\n` +
-    `Looking forward to hosting you!\n\nEdward Tours`;
+    `Looking forward to hosting you!\n\nEDWARD VILLA FOOD COURT TOURS & TRAVELS AGENCY (PRIVATE) LIMITED`;
   return `mailto:${booking.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
