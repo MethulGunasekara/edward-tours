@@ -9,12 +9,12 @@ export default function Footer() {
           <div className="flex items-center gap-3 mb-2">
             <Image
               src="/logo.png"
-              alt="Edward Tours logo"
+              alt="EDWARD VILLA FOOD COURT TOURS & TRAVELS AGENCY (PRIVATE) LIMITED logo"
               width={44}
               height={44}
               className="rounded-full object-cover"
             />
-            <h3 className="font-serif text-lg font-bold">Edward Tours</h3>
+            <h3 className="font-serif text-lg font-bold mb-2">EDWARD VILLA FOOD COURT TOURS &amp; TRAVELS AGENCY (PRIVATE) LIMITED</h3>
           </div>
           <p className="text-sm text-white/80">
             Private, locally-guided tours across Sri Lanka, planned and led by someone who
@@ -29,21 +29,21 @@ export default function Footer() {
         <div>
           <h4 className="font-semibold mb-2 text-ceylon-gold">Trust & Payments</h4>
           <p className="text-sm text-white/80 mb-2">
-            Deposits secured via PayHere, CBSL-regulated.
+            Deposits secured via PayHere
           </p>
           <ul className="space-y-1 text-sm">
             <li>
-              <Link href="/refund-policy" className="text-white/80 underline hover:text-ceylon-gold">
+              <Link href="/refund-policy" className="text-white/80 hover:text-ceylon-gold">
                 Cancellation & Refund Policy
               </Link>
             </li>
             <li>
-              <Link href="/privacy-policy" className="text-white/80 underline hover:text-ceylon-gold">
+              <Link href="/privacy-policy" className="text-white/80 hover:text-ceylon-gold">
                 Privacy Policy
               </Link>
             </li>
             <li>
-              <Link href="/terms" className="text-white/80 underline hover:text-ceylon-gold">
+              <Link href="/terms" className="text-white/80 hover:text-ceylon-gold">
                 Terms & Conditions
               </Link>
             </li>
