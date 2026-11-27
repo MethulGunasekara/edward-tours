@@ -7,7 +7,7 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-3 mb-2">
             <img
-              src="/logo.png"
+              src="/logo.jpg"
               alt="Edward Tours logo"
               width={44}
               height={44}
