@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Footer() {
   return (
     <footer id="contact" className="bg-ceylon-teal text-white mt-24">
@@ -13,9 +15,16 @@ export default function Footer() {
           <h4 className="font-semibold mb-2 text-ceylon-gold">Get in touch</h4>
           <p className="text-sm text-white/80">WhatsApp / Phone: +94 77 938 2746</p>
           <p className="text-sm text-white/80">Email: edwardtours.lk@gmail.com</p>
+          <p className="text-sm text-white/80">Address: 356/2B, Robert Gunawardena Mawatha, Malabe, Sri Lanka</p>
         </div>
         <div>
-          <h4 className="font-semibold mb-2 text-ceylon-gold">Trust & Payments</h4>
+          <div>
+            <h4 className="font-semibold mb-2 text-ceylon-gold">Trust & Payments</h4>
+            <p className="text-sm text-white/80">Deposits secured via PayHere, CBSL-regulated.</p>
+            <Link href="/refund-policy" className="text-sm text-white/80 underline hover:text-ceylon-gold mt-2 inline-block">
+              Cancellation & Refund Policy
+            </Link>
+          </div>
           <p className="text-sm text-white/80">Deposits secured via PayHere — CBSL-regulated.</p>
         </div>
       </div>

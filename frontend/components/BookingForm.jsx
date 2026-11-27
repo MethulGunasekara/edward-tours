@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { createBooking, initiatePayment } from '@/lib/api';
 import { redirectToPayHere } from '@/lib/payhereRedirect';
 import { countries } from '@/lib/countries';
+import Link from 'next/link';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -19,6 +20,7 @@ export default function BookingForm({ pkg }) {
   const [error, setError] = useState('');
   const [createdBooking, setCreatedBooking] = useState(null);
   const [payLoading, setPayLoading] = useState(false);
+  const [agreed, setAgreed] = useState(false);
 
   const selectedCountry = countries.find((c) => c.code === countryCode) || countries[0];
 
@@ -54,6 +56,10 @@ export default function BookingForm({ pkg }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!agreed) {
+      setError('Please accept the cancellation and refund policy to continue.');
+      return;
+    }
     if (!matchedTier) {
       setError('No pricing tier matches that group size — please contact us directly.');
       return;
@@ -171,6 +177,22 @@ export default function BookingForm({ pkg }) {
           <span className="text-amber-600">No pricing tier found for that group size yet.</span>
         )}
       </div>
+      <label className="flex items-start gap-2 text-xs text-gray-600">
+        <input
+          type="checkbox"
+          checked={agreed}
+          onChange={(e) => setAgreed(e.target.checked)}
+          required
+          className="mt-0.5"
+        />
+        <span>
+          I understand the 30% deposit is non-refundable if I cancel, and I agree to the{' '}
+          <Link href="/refund-policy" target="_blank" className="underline text-ceylon-teal">
+            Cancellation & Refund Policy
+          </Link>
+          .
+        </span>
+      </label>
 
       {status === 'error' && <p className="text-sm text-red-600">{error}</p>}
       <button type="submit" disabled={status === 'loading'}
