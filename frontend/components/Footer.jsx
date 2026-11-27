@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Footer() {
@@ -7,12 +6,12 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 py-12 grid gap-8 md:grid-cols-3">
         <div>
           <div className="flex items-center gap-3 mb-2">
-            <Image
+            <img
               src="/logo.png"
-              alt="EDWARD VILLA FOOD COURT TOURS & TRAVELS AGENCY (PRIVATE) LIMITED logo"
+              alt="Edward Tours logo"
               width={44}
               height={44}
-              className="rounded-full object-cover"
+              className="w-11 h-11 rounded-full object-cover"
             />
             <h3 className="font-serif text-lg font-bold mb-2">EDWARD VILLA FOOD COURT TOURS &amp; TRAVELS AGENCY (PRIVATE) LIMITED</h3>
           </div>
@@ -25,6 +24,7 @@ export default function Footer() {
           <h4 className="font-semibold mb-2 text-ceylon-gold">Get in touch</h4>
           <p className="text-sm text-white/80">WhatsApp / Phone: +94 77 938 2746</p>
           <p className="text-sm text-white/80">Email: edwardtours.lk@gmail.com</p>
+          <p className="text-sm text-white/80">Address: 356/2B,Robert Gunawardhana MW, Malabe, Sri Lanka</p>
         </div>
         <div>
           <h4 className="font-semibold mb-2 text-ceylon-gold">Trust & Payments</h4>
